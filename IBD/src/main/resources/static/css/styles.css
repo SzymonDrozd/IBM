@@ -1,0 +1,17 @@
+.user-page-row {
+	margin-top:50px;
+}
+
+.user-page-main-heading {
+	font-size:25px;
+}
+
+.user-page-input {
+	margin-bottom:10px;
+}
+
+.user-page-thumbnail {
+	width:300px;
+	float:left;
+	margin-right:15px;
+}
