@@ -2,18 +2,37 @@ import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Register.css";
 
-export default class Login extends Component {
+export default class Register extends Component {
   constructor(props) {
     super(props);
 
+    this.validateForm = this.validateForm.bind(this)
+
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      passwordConfirmation: "",
+      firstName: "",
+      lastName: ""
     };
   }
 
   validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0;
+    if (this.state.email.length > 0 
+      && this.state.password.length > 0 
+      && this.state.passwordConfirmation.length > 0
+      && this.state.firstName.length > 0
+      && this.state.lastName.length > 0 
+    ){
+      if (this.state.password === this.state.passwordConfirmation)
+        return true
+      else
+        alert("hasłą nie są takie same")
+        return 
+    }
+    else
+      alert("uzupełnij pola")
+      return false
   }
 
   handleChange = event => {
@@ -23,12 +42,15 @@ export default class Login extends Component {
   }
 
   handleSubmit = event => {
+    if (this.validateForm()){
+      //zarejestruj
+    }
     event.preventDefault();
   }
 
   render() {
     return (
-      <div className="Login">
+      <div className="Register">
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="email" bsSize="large">
             <ControlLabel>Email</ControlLabel>
@@ -47,10 +69,10 @@ export default class Login extends Component {
               type="password"
             />
           </FormGroup>
-          <FormGroup controlId="password confirmation" bsSize="large">
+          <FormGroup controlId="passwordConfirmation" bsSize="large">
             <ControlLabel>Password (confirmation)</ControlLabel>
             <FormControl
-              value={this.state.password}
+              value={this.state.passwordConfirmation}
               onChange={this.handleChange}
               type="password"
             />
@@ -60,24 +82,25 @@ export default class Login extends Component {
             <FormControl
               autoFocus
               type="text"
-              value={this.state.email}
+              value={this.state.firstName}
               onChange={this.handleChange}
             />
           </FormGroup>
-          <FormGroup controlId="email" bsSize="large">
+          <FormGroup controlId="lastName" bsSize="large">
             <ControlLabel>Last Name</ControlLabel>
             <FormControl
               autoFocus
               type="text"
-              value={this.state.email}
+              value={this.state.lastName}
               onChange={this.handleChange}
             />
           </FormGroup>
           <Button
             block
             bsSize="large"
-            disabled={!this.validateForm()}
+            //disabled={!this.validateForm()}
             type="submit"
+            //onClick={this.validateForm}
           >
             Zarejestruj
           </Button>
