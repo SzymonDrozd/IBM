@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import "./Login.css";
+import "./Register.css";
 
 export default class Login extends Component {
   constructor(props) {
@@ -45,6 +45,32 @@ export default class Login extends Component {
               value={this.state.password}
               onChange={this.handleChange}
               type="password"
+            />
+          </FormGroup>
+          <FormGroup controlId="password confirmation" bsSize="large">
+            <ControlLabel>Password (confirmation)</ControlLabel>
+            <FormControl
+              value={this.state.password}
+              onChange={this.handleChange}
+              type="password"
+            />
+          </FormGroup>
+          <FormGroup controlId="firstName" bsSize="large">
+            <ControlLabel>First name</ControlLabel>
+            <FormControl
+              autoFocus
+              type="text"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+          </FormGroup>
+          <FormGroup controlId="email" bsSize="large">
+            <ControlLabel>Last Name</ControlLabel>
+            <FormControl
+              autoFocus
+              type="text"
+              value={this.state.email}
+              onChange={this.handleChange}
             />
           </FormGroup>
           <Button
