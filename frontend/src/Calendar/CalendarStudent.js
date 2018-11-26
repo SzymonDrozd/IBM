@@ -7,18 +7,25 @@ import events from './events'
 // Setup the localizer by providing the moment (or globalize) Object
 // to the correct localizer.
 const localizer = BigCalendar.momentLocalizer(moment) // or globalizeLocalizer
-let allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k])
-export default class Home extends Component {
+export default class CalendarTeacher extends Component {
+    
+    handleSelect(event){
+      alert(event.title)
+    }  
+  
     render() {
       return (
         <div>
         <BigCalendar
+            selectable
             events={events}
-            views={allViews}
-            step={60}
-            showMultiDayTimes
-            defaultDate={new Date(2015, 3, 1)}
+            views={['week','day','agenda']}
+            defaultView='week'
+            //step={60}
+            //showMultiDayTimes
+            //defaultDate={new Date(2015, 3, 1)}
             localizer={localizer}
+            onSelectEvent={this.handleSelect}
         />
       </div>
       );

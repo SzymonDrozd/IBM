@@ -79,7 +79,7 @@ export default class Login extends Component {
             disabled={!this.validateForm()}
             type="submit"
           >
-            Login
+            Zarejestruj
           </Button>
         </form>
       </div>
