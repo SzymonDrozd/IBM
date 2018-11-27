@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import axios from "axios"
 import "./Login.css";
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
+
+    this.validateForm = this.validateForm.bind(this)
 
     this.state = {
       email: "",
@@ -13,17 +16,43 @@ export default class Login extends Component {
   }
 
   validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0;
+    return this.state.user.email.length > 0 && this.state.user.password.length > 0;
   }
 
   handleChange = event => {
+    const { user } = this.state;
+    console.log(event.target.id)
     this.setState({
-      [event.target.id]: event.target.value
+      user: {
+                ...user,
+                [event.target.id]: event.target.value
+            }
     });
   }
 
+
   handleSubmit = event => {
     event.preventDefault();
+    if (this.validateForm()){
+      const user = {
+        email : this.state.user.email,
+        password : this.state.user.password
+      }
+      axios
+        .post("http://localhost:8080/login",user)
+        .then(response => {
+          console.log(response);
+          if (response.data)
+            this.setState({
+              submitted : true
+            })
+            console.log(this.state)
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+        
+    }
   }
 
   render() {
