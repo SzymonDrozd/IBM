@@ -29,12 +29,13 @@ public class User implements Serializable {
 	@NotEmpty(message = "{user.password.empty")
 	private String password;
 
-	@Transient
 	@NotEmpty(message = "{user.confirmationPassword.empty}")
 	private String confirmPassword;
 
 	@NotEmpty(message = "{user.status.empty")
 	private String status;
+	
+	private boolean activate;
 
 	public Long getId() {
 		return id;
@@ -91,5 +92,15 @@ public class User implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public boolean isActivate() {
+		return activate;
+	}
+
+	public void setActivate(boolean activate) {
+		this.activate = activate;
+	}
+	
+	
 
 }

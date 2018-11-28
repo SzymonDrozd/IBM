@@ -36,10 +36,8 @@ public class ActivateMailSender {
 			message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(user.getEmail()));
 			message.setSubject("Activation Link");
-			String link = "<a href=\"www.abc.com/activation/"+user.getId() + PasswordHash.get_SHA_512_SecurePassword(user.getEmail(), "ibd")+"\">click here</a>";
-//			message.setText("Dear Mail Crawler," +
-//					"\n\n No spam to my email, please!");
-			message.setContent(link,"text/html");
+//			String link = "<a href=\"localhost:8080/activation/"+user.getId() + PasswordHash.get_SHA_512_SecurePassword(user.getEmail(), "ibd")+"\">click here</a>";
+			message.setText("localhost:8080/activation/"+user.getId() + "." + PasswordHash.get_SHA_512_SecurePassword(user.getEmail(), "ibd"));
 
 			Transport.send(message);
 

@@ -25,7 +25,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User save(User user) {
 		user.setPassword(PasswordHash.get_SHA_512_SecurePassword(user.getPassword(),"IBD112018"));
-		user.setPassword(PasswordHash.get_SHA_512_SecurePassword(user.getConfirmPassword(),"IBD112018"));
+		user.setConfirmPassword(PasswordHash.get_SHA_512_SecurePassword(user.getConfirmPassword(),"IBD112018"));
+		user.setActivate(false);
 		return userDao.save(user);
 	}
 
