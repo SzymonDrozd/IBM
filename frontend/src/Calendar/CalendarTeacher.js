@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import BigCalendar from 'react-big-calendar'
+import axios from "axios"
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from 'moment'
 import events from './events'
@@ -12,6 +13,7 @@ export default class CalendarTeacher extends Component {
       super (...args)
       this.state = {events}
       this.handleSlot=this.handleSlot.bind(this)
+      this.getElements()
     }
     
     handleEvent(event){
@@ -25,7 +27,37 @@ export default class CalendarTeacher extends Component {
       }
       this.props.addLesson(lesson)
       this.props.history.push("/editLesson");
-    }  
+    } 
+    
+    getElements(){
+      axios
+      .get("http://localhost:8080/getalllessons")
+      .then(response => {
+        console.log(response);
+
+        if (response.data){
+          response.data.forEach(entry=> {
+            const event= {
+              id:entry.id,
+              title:entry.subject,
+              start:new Date(entry.dateStart),
+              end:new Date(entry.dateStop),
+              desc:entry.description
+            }
+            this.setState({
+              events:[
+                ...this.state.events,event
+              ],
+            })
+        });
+          
+          console.log(this.state)
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    }
 
     render() {
       return (
