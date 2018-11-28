@@ -44,21 +44,21 @@ public class LessonServiceImpl implements LessonService {
 	}
 
 	@Override
-	public Lesson getLessonByStudentId(Long id) {
-		Lesson lesson = lessonDao.findOneByStudentId(id);
-		if (lesson == null) {
+	public List<Lesson> getLessonByStudentId(Long id) {
+		List<Lesson> list = lessonDao.findByStudentId(id);
+		if (list == null) {
 			return null;
 		}
-		return lesson;
+		return list;
 	}
 
 	@Override
-	public Lesson getLessonByAuthorId(Long id) {
-		Lesson lesson = lessonDao.findOneByAuthorId(id);
-		if (lesson == null) {
+	public List<Lesson> getLessonByAuthorId(Long id) {
+		List<Lesson> list = lessonDao.findByAuthorId(id);
+		if (list == null) {
 			return null;
 		}
-		return lesson;
+		return list;
 	}
 
 	@Override

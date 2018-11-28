@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import IBDNew.IBDNew.model.User;
+import IBDNew.IBDNew.passwordhash.PasswordHash;
 import IBDNew.IBDNew.repository.UserDao;
 import IBDNew.IBDNew.service.UserService;
 
@@ -23,8 +24,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User save(User user) {
-		user.setPassword(user.getPassword());
-		user.setPassword(user.getConfirmPassword());
+		user.setPassword(PasswordHash.get_SHA_512_SecurePassword(user.getPassword(),"IBD112018"));
+		user.setPassword(PasswordHash.get_SHA_512_SecurePassword(user.getConfirmPassword(),"IBD112018"));
 		return userDao.save(user);
 	}
 
@@ -66,14 +67,5 @@ public class UserServiceImpl implements UserService {
 			return null;
 
 	}
-
-	// @Override
-	// public UserDetails loadUserByUsername(String email) {
-	// User user = userDao.findOneByEmail(email);
-	// if (user == null) {
-	// throw new UsernameNotFoundException(email);
-	// }
-	// return user;
-	// }
 
 }

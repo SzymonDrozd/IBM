@@ -8,8 +8,8 @@ public interface LessonService {
 	Lesson save(Lesson lesson);
 	Lesson update(Lesson lesson);
     Lesson getLessonById(Long id);
-    Lesson getLessonByStudentId(Long id);
-    Lesson getLessonByAuthorId(Long id);
+    List<Lesson> getLessonByStudentId(Long id);
+    List<Lesson> getLessonByAuthorId(Long id);
     List<Lesson> getLessons();
 
 

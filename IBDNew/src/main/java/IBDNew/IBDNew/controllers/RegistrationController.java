@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import IBDNew.IBDNew.mail.ActivateMailSender;
 import IBDNew.IBDNew.model.User;
 import IBDNew.IBDNew.service.UserService;
 
@@ -22,6 +23,7 @@ public class RegistrationController {
 			return false;
 		} else {
 			userService.save(user);
+			ActivateMailSender.sendActivationMail(user);
 			return true;
 		}
 	}

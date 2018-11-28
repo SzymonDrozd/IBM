@@ -29,14 +29,12 @@ public class LessonController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/getlesson")
-	public Lesson getLesson(@RequestBody User user) {
-		Lesson lesson;
+	public List<Lesson> getLesson(@RequestBody User user) {
 		if(user.getStatus().equals("student")) {
-			lesson = lessonService.getLessonByStudentId(user.getId());
+			return lessonService.getLessonByStudentId(user.getId());
 		}else {
-			lesson = lessonService.getLessonByAuthorId(user.getId());
+			return lessonService.getLessonByAuthorId(user.getId());
 		}
-		return lesson;
 		
 	}
 	
