@@ -1,0 +1,11 @@
+@media all and (min-width: 480px) {
+    .Lesson {
+      padding: 60px 0;
+    }
+  
+    .Lesson form {
+      margin: 0 auto;
+      max-width: 320px;
+    }
+  }
+  
