@@ -1,5 +1,7 @@
 package IBDNew.IBDNew.service.imp;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +59,11 @@ public class LessonServiceImpl implements LessonService {
 			return null;
 		}
 		return lesson;
+	}
+
+	@Override
+	public List<Lesson> getLessons() {
+		return lessonDao.findAll();
 	}
 
 }

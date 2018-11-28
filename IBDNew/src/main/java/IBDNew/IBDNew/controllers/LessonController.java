@@ -1,5 +1,7 @@
 package IBDNew.IBDNew.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +28,7 @@ public class LessonController {
 
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/getlesson")
+	@RequestMapping(method = RequestMethod.POST, value = "/getlesson")
 	public Lesson getLesson(@RequestBody User user) {
 		Lesson lesson;
 		if(user.getStatus().equals("student")) {
@@ -35,6 +37,17 @@ public class LessonController {
 			lesson = lessonService.getLessonByAuthorId(user.getId());
 		}
 		return lesson;
+		
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/getalllessons")
+	public List<Lesson> getLesson() {
+		return lessonService.getLessons();
+		
+	}
+	@RequestMapping(method = RequestMethod.POST, value = "/updatelesson")
+	public void updateLesson(@RequestBody Lesson lesson) {
+		lessonService.update(lesson);
 		
 	}
 

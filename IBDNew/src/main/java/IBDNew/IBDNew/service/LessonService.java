@@ -1,5 +1,7 @@
 package IBDNew.IBDNew.service;
 
+import java.util.List;
+
 import IBDNew.IBDNew.model.Lesson;
 
 public interface LessonService {
@@ -8,6 +10,7 @@ public interface LessonService {
     Lesson getLessonById(Long id);
     Lesson getLessonByStudentId(Long id);
     Lesson getLessonByAuthorId(Long id);
+    List<Lesson> getLessons();
 
 
 
