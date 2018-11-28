@@ -5,16 +5,23 @@ import Login from "./User/Login";
 import Register from "./User/Register";
 import CalendarTeacher from "./Calendar/CalendarTeacher";
 import CalendarStudent from "./Calendar/CalendarStudent";
-import Lesson from "./Lesson/Lesson"
+import MyCalendar from "./Calendar/MyCalendar";
+import EditLesson from "./Lesson/EditLesson"
+//import AppliedRoute from "./Components/AppliedRoute";
+import AuthenticatedRoute from "./Components/AuthenticatedRoute";
+import UnauthenticatedRoute from "./Components/UnauthenticatedRoute";
+import NotFound from "./NotFound/NotFound";
 
 
 
-export default () =>
+export default ({ childProps }) =>
   <Switch>
-    <Route path="/" exact component={Home} />
-    <Route path="/login" exact component={Login} />
-    <Route path="/register" exact component={Register} />
-    <Route path="/calendarTeacher" exact component={CalendarTeacher} />
-    <Route path="/calendarStudent" exact component={CalendarStudent} />
-    <Route path="/lesson" exact component={Lesson} />
+    <UnauthenticatedRoute path="/" exact component={Home} props={childProps} />
+    <UnauthenticatedRoute path="/login" exact component={Login} props={childProps} />
+    <UnauthenticatedRoute path="/register" exact component={Register} props={childProps} />
+    <AuthenticatedRoute path="/calendarTeacher" exact component={CalendarTeacher} props={childProps} />
+    <AuthenticatedRoute path="/calendarStudent" exact component={CalendarStudent} props={childProps} />
+    <AuthenticatedRoute path="/myCalendar" exact component={MyCalendar} props={childProps} />
+    <AuthenticatedRoute path="/editlesson" exact component={EditLesson} props={childProps}/>
+    <Route component={NotFound} />
   </Switch>;

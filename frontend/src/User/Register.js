@@ -18,7 +18,6 @@ export default class Register extends Component {
         surname: "",
         status: ""
       },
-      submitted: false
     };
   }
 
@@ -58,8 +57,16 @@ export default class Register extends Component {
       console.log(this.state.user)
       axios
         .post("http://localhost:8080/register",this.state.user)
-        .then(function(response) {
-          console.log(response);
+
+        .then(response => {
+          //console.log(response);
+          if (response.data)
+          this.props.userHasAuthenticated(true,this.state.user);
+          if (this.state.user.status === "student")
+            this.props.history.push("/calendarStudent");
+          else
+            this.props.history.push("/calendarTeacher")
+            console.log(this.state)
         })
         .catch(function(error) {
           console.log(error);

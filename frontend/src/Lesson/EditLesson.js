@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import "./Lesson.css";
+import axios from "axios"
+import "./EditLesson.css";
 
 export default class Login extends Component {
   constructor(props) {
@@ -11,10 +12,14 @@ export default class Login extends Component {
     this.state = {
       name: "",
       date:"",
-      timeStart: "",
+      timeStart:"",
       timeEnd: "",
       note: ""
     };
+    console.log(this.state)
+    /*      date:String(this.props.lesson.start).substr(0,String(this.props.lesson.start).indexOf('T')),
+      timeStart: String(this.props.lesson.start).substr(String(this.props.lesson.start).indexOf('T'),this.props.lesson.start.length),
+      timeEnd: String(this.props.lesson.start).substr(String(this.props.lesson.end).indexOf('T'),this.props.lesson.end.length),*/
   }
 
   validateForm() {
@@ -38,10 +43,30 @@ export default class Login extends Component {
   }
 
   handleSubmit = event => {
+    event.preventDefault();
+    const lesson= {
+      subject: this.state.name,
+      authorId: this.props.user.id,
+      decription: this.state.note,
+      dateStart: this.state.date+"T"+this.state.timeStart,
+      dateStop: this.state.date+"T"+this.state.timeEnd
+    }
+    console.log(lesson)
     if (this.validateForm()){
-        //zapisz
+      axios
+      .post("http://localhost:8080/addlesson",lesson)
+      .then(response => {
+        console.log(response);
+        if (response.data){
+
+        }          
+          else
+            {}
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
       }
-      event.preventDefault();
   }
 
   render() {
@@ -65,7 +90,7 @@ export default class Login extends Component {
               type="date"
             />
           </FormGroup>
-          <FormGroup controlId="dateStart" bsSize="large">
+          <FormGroup controlId="timeStart" bsSize="large">
             <ControlLabel>Czas Rozpoczęcia</ControlLabel>
             <FormControl
               value={this.state.timeStart}
@@ -73,7 +98,7 @@ export default class Login extends Component {
               type="time"
             />
           </FormGroup>
-          <FormGroup controlId="dateEnd" bsSize="large">
+          <FormGroup controlId="timeEnd" bsSize="large">
             <ControlLabel>Czas Zakończenia</ControlLabel>
             <FormControl
               value={this.state.timeEnd}
@@ -85,7 +110,7 @@ export default class Login extends Component {
             <ControlLabel>opis</ControlLabel>
             <FormControl
               autoFocus
-              type="text"
+              componentClass="textarea" placeholder="textarea"
               value={this.state.note}
               onChange={this.handleChange}
             />

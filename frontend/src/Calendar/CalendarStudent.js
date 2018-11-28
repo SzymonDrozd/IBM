@@ -7,7 +7,7 @@ import events from './events'
 // Setup the localizer by providing the moment (or globalize) Object
 // to the correct localizer.
 const localizer = BigCalendar.momentLocalizer(moment) // or globalizeLocalizer
-export default class CalendarTeacher extends Component {
+export default class CalendarStudent extends Component {
     
     handleSelect(event){
       alert(event.title)
