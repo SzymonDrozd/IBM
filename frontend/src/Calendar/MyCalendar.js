@@ -12,40 +12,50 @@ export default class MyCalendar extends Component {
     constructor(...args){
       super (...args)
       this.state = {events}
+      this.getElements()
     }
   
     handleSelect(event){
       alert(event.title)
     }  
-  
+    
+    getElements(){
+      axios
+      .post("http://localhost:8080/getlesson",this.props.user)
+      .then(response => {
+        console.log(response);
+
+        if (response.data){
+          const event= {
+            id:response.data.id,
+            title:response.data.subject,
+            start:new Date(response.data.dateStart),
+            end:new Date(response.data.dateStop),
+            desc:response.data.description
+          }
+          this.setState({
+            events:[
+              ...this.state.events,event
+            ],
+          })
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    }
     render() {
-      console.log(this.props.user)
+      console.log(this.state)
       //const user = {
         //email : this.props.user.email,
         //password : this.props.user.password
       //}
-            
-      axios
-        .get("http://localhost:8080/getlesson")
-        .then(response => {
-          console.log(response);
-          if (response.data)
-            this.setState({
-              events:[
-                ...this.state.events,response.data
-                ,
-              ],
-            })
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
       
       return (
         <div>
         <BigCalendar
             selectable
-            events={events}
+            events={this.state.events}
             views={['week','day','agenda']}
             defaultView='week'
             //step={60}

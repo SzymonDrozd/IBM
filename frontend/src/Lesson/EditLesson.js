@@ -47,7 +47,7 @@ export default class Login extends Component {
     const lesson= {
       subject: this.state.name,
       authorId: this.props.user.id,
-      decription: this.state.note,
+      description: this.state.note,
       dateStart: this.state.date+"T"+this.state.timeStart,
       dateStop: this.state.date+"T"+this.state.timeEnd
     }
