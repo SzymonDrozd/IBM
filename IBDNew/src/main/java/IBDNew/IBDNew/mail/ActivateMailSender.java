@@ -25,7 +25,7 @@ public class ActivateMailSender {
 		Session session = Session.getDefaultInstance(props,
 			new javax.mail.Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("miszczek5@gmail.com","ratata456");
+					return new PasswordAuthentication("miszczek5@gmail.com","password");
 				}
 			});
 
