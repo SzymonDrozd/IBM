@@ -60,7 +60,8 @@ public class UserServiceImpl implements UserService {
 	public User findUser(User user) {
 		User newUser = userDao.findOneByEmail(user.getEmail());
 		if (newUser != null) {
-			if (newUser.getPassword().equals(user.getPassword())) {
+			if (newUser.getPassword().equals(PasswordHash.get_SHA_512_SecurePassword(user.getPassword(),"IBD112018"))) {
+				newUser.setPassword(null);
 				return newUser;
 			} else
 				return null;
