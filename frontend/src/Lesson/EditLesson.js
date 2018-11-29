@@ -11,15 +11,12 @@ export default class Login extends Component {
 
     this.state = {
       name: "",
-      date:"",
-      timeStart:"",
-      timeEnd: "",
+      date: this.props.lesson.start.getFullYear()+"-"+("0"+(this.props.lesson.start.getMonth()+1)).slice(-2)+"-"+("0"+this.props.lesson.start.getDate()).slice(-2),
+      timeStart: ("0"+this.props.lesson.start.getHours()).slice(-2)+":"+("0"+this.props.lesson.start.getMinutes()).slice(-2),
+      timeEnd: ("0"+this.props.lesson.end.getHours()).slice(-2)+":"+("0"+this.props.lesson.end.getMinutes()).slice(-2),
       note: ""
     };
     console.log(this.state)
-    /*      date:String(this.props.lesson.start).substr(0,String(this.props.lesson.start).indexOf('T')),
-      timeStart: String(this.props.lesson.start).substr(String(this.props.lesson.start).indexOf('T'),this.props.lesson.start.length),
-      timeEnd: String(this.props.lesson.start).substr(String(this.props.lesson.end).indexOf('T'),this.props.lesson.end.length),*/
   }
 
   validateForm() {
@@ -40,6 +37,8 @@ export default class Login extends Component {
     this.setState({
       [event.target.id]: event.target.value
     });
+    console.log(event.target.value)
+    console.log(this.state)
   }
 
   handleSubmit = event => {
@@ -58,7 +57,7 @@ export default class Login extends Component {
       .then(response => {
         console.log(response);
         if (response.data){
-
+            alert("OK")
         }          
           else
             {}
@@ -82,7 +81,7 @@ export default class Login extends Component {
               onChange={this.handleChange}
             />
           </FormGroup>
-          <FormGroup controlId="date" bsSize="large">
+          <FormGroup controlId="date" bsSize="large" fo>
             <ControlLabel>Data</ControlLabel>
             <FormControl
               value={this.state.date}

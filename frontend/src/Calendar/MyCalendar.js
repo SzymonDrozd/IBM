@@ -26,18 +26,20 @@ export default class MyCalendar extends Component {
         console.log(response);
 
         if (response.data){
-          const event= {
-            id:response.data.id,
-            title:response.data.subject,
-            start:new Date(response.data.dateStart),
-            end:new Date(response.data.dateStop),
-            desc:response.data.description
-          }
-          this.setState({
-            events:[
-              ...this.state.events,event
-            ],
-          })
+          response.data.forEach(entry=> {
+            const event= {
+              id:entry.id,
+              title:entry.subject,
+              start:new Date(entry.dateStart),
+              end:new Date(entry.dateStop),
+              desc:entry.description
+            }
+            this.setState({
+              events:[
+                ...this.state.events,event
+              ],
+            })
+        });
         }
       })
       .catch(function(error) {

@@ -86,9 +86,6 @@ class App extends Component {
                 <NavItem onClick={this.handleLogout}>Logout</NavItem>
                 {this.state.user.status==="teacher"
                   ? <Fragment> 
-                      <LinkContainer to="/editLesson">
-                        <NavItem>DodajLekcje</NavItem>
-                      </LinkContainer>
                       <LinkContainer to="/calendarTeacher">
                         <NavItem>Kalendarz</NavItem>
                       </LinkContainer>

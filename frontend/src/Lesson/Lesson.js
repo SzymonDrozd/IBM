@@ -1,47 +1,65 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import axios from "axios"
 import "./Lesson.css";
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
-
-    this.validateForm = this.validateForm.bind(this)
-
-    this.state = {
-      name: "",
-      date:"",
-      timeStart: "",
-      timeEnd: "",
-      note: ""
+    this.loadLesson = this.loadLesson.bind(this)
+    const less =this.props.lesson
+    this.state = {      
+      name: less.name,
+      date: less.date,
+      timeStart: less.timeStart,
+      timeEnd: less.timeEnd,
+      note: less.note,
+      authorId: less.authorId,
+      studentId: less.studentId,
+      id: less.id
     };
-  }
-
-  validateForm() {
-    if (this.state.name.length > 0 
-      && this.state.date.length > 0 
-      && this.state.timeStart.length > 0 
-      && this.state.timeEnd.length > 0
-      && this.state.note.length > 0 
-    )
-        return true
-
-    else
-      alert("uzupełnij pola")
-      return false
+    console.log(this.state)
+    //this.loadLesson();
   }
 
   handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value
     });
+    console.log(event.target.value)
+    console.log(this.state)
+  }
+  
+  validateForm(){
+    return !this.state.studentId
   }
 
+  loadLesson(){
+    //this.setState({lesson:this.props.lesson})
+    //console.log(this.state)
+  }
   handleSubmit = event => {
-    if (this.validateForm()){
-        //zapisz
-      }
       event.preventDefault();
+      const less={
+        subject: this.state.name,
+        authorId: this.state.authorId,
+        description: this.state.note,
+        dateStart: this.state.date+"T"+this.state.timeStart,
+        dateStop: this.state.date+"T"+this.state.timeEnd,
+        studentId: this.props.user.id,
+        id:this.state.id
+      }
+      console.log(less)
+      axios
+        .post("http://localhost:8080/updatelesson",less)
+        .then(response => {
+          console.log(response);
+          if (response.data)
+           alert("Ok")
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
   }
 
   render() {
@@ -54,30 +72,34 @@ export default class Login extends Component {
               autoFocus
               type="text"
               value={this.state.name}
-              onChange={this.handleChange}
             />
           </FormGroup>
-          <FormGroup controlId="date" bsSize="large">
+          <FormGroup controlId="authorId" bsSize="large">
+            <ControlLabel>Nauczyciel</ControlLabel>
+            <FormControl
+              autoFocus
+              type="text"
+              value={this.state.authorId}
+            />
+          </FormGroup>
+          <FormGroup controlId="date" bsSize="large" fo>
             <ControlLabel>Data</ControlLabel>
             <FormControl
               value={this.state.date}
-              onChange={this.handleChange}
               type="date"
             />
           </FormGroup>
-          <FormGroup controlId="dateStart" bsSize="large">
+          <FormGroup controlId="timeStart" bsSize="large">
             <ControlLabel>Czas Rozpoczęcia</ControlLabel>
             <FormControl
               value={this.state.timeStart}
-              onChange={this.handleChange}
               type="time"
             />
           </FormGroup>
-          <FormGroup controlId="dateEnd" bsSize="large">
+          <FormGroup controlId="timeEnd" bsSize="large">
             <ControlLabel>Czas Zakończenia</ControlLabel>
             <FormControl
               value={this.state.timeEnd}
-              onChange={this.handleChange}
               type="time"
             />
           </FormGroup>
@@ -85,19 +107,18 @@ export default class Login extends Component {
             <ControlLabel>opis</ControlLabel>
             <FormControl
               autoFocus
-              type="text"
+              componentClass="textarea" placeholder="textarea"
               value={this.state.note}
-              onChange={this.handleChange}
             />
           </FormGroup>
           <Button
             block
             bsSize="large"
-            //disabled={!this.validateForm()}
+            disabled={!this.validateForm()}
             type="submit"
             //onClick={this.validateForm}
           >
-            Zapisz
+            Zapisz się
           </Button>
         </form>
       </div>
