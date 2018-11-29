@@ -62,6 +62,7 @@ public class UserServiceImpl implements UserService {
 		if (newUser != null) {
 			if (newUser.getPassword().equals(PasswordHash.get_SHA_512_SecurePassword(user.getPassword(),"IBD112018"))) {
 				newUser.setPassword(null);
+				newUser.setConfirmPassword(null);
 				return newUser;
 			} else
 				return null;
