@@ -8,6 +8,16 @@ export default class Login extends Component {
     super(props);
     this.loadLesson = this.loadLesson.bind(this)
     const less =this.props.lesson
+    let author = ""
+    axios
+    .get("http://localhost:8080/getuser/"+less.authorId)
+    .then(response => {
+
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+
     this.state = {      
       name: less.name,
       date: less.date,
@@ -40,6 +50,7 @@ export default class Login extends Component {
   }
   handleSubmit = event => {
       event.preventDefault();
+      
       const less={
         subject: this.state.name,
         authorId: this.state.authorId,

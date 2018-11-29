@@ -49,11 +49,16 @@ export default class Login extends Component {
         .then(response => {
           console.log(response);
           if (response.data)
-            this.props.userHasAuthenticated(true,response.data);
-            if (response.data.status === "student")
-              this.props.history.push("/calendarStudent");
-            else
-              this.props.history.push("/calendarTeacher")
+            if (response.data.activate){
+              this.props.userHasAuthenticated(true,response.data);
+              if (response.data.status === "student") 
+                this.props.history.push("/calendarStudent");
+              else
+                this.props.history.push("/calendarTeacher")
+              }
+            else{
+              alert("aktywuj swoje konto")
+            }
         })
         .catch(function(error) {
           console.log(error);

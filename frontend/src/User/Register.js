@@ -16,7 +16,7 @@ export default class Register extends Component {
         confirmPassword: "",
         firstName: "",
         surname: "",
-        status: ""
+        status: "student"
       },
     };
   }
@@ -63,9 +63,9 @@ export default class Register extends Component {
           if (response.data)
           this.props.userHasAuthenticated(true,this.state.user);
           if (this.state.user.status === "student")
-            this.props.history.push("/calendarStudent");
+            this.props.history.push("/");
           else
-            this.props.history.push("/calendarTeacher")
+            this.props.history.push("/")
             console.log(this.state)
         })
         .catch(function(error) {
