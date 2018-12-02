@@ -8,15 +8,6 @@ export default class Login extends Component {
     super(props);
     this.loadLesson = this.loadLesson.bind(this)
     const less =this.props.lesson
-    let author = ""
-    axios
-    .get("http://localhost:8080/getuser/"+less.authorId)
-    .then(response => {
-
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
 
     this.state = {      
       name: less.name,
@@ -54,6 +45,7 @@ export default class Login extends Component {
       const less={
         subject: this.state.name,
         authorId: this.state.authorId,
+        author: "",
         description: this.state.note,
         dateStart: this.state.date+"T"+this.state.timeStart,
         dateStop: this.state.date+"T"+this.state.timeEnd,
@@ -73,6 +65,19 @@ export default class Login extends Component {
         });
   }
 
+  componentDidMount() {
+    axios
+    .get("http://localhost:8080/getuser/"+this.props.lesson.authorId)
+    .then(response => {
+        const author=response.data.firstName+" "+response.data.surname;
+        this.setState({author:author})
+        console.log(author)
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+  }
+
   render() {
     return (
       <div className="Lesson">
@@ -90,7 +95,7 @@ export default class Login extends Component {
             <FormControl
               autoFocus
               type="text"
-              value={this.state.authorId}
+              value={this.state.author}
             />
           </FormGroup>
           <FormGroup controlId="date" bsSize="large" fo>
