@@ -1,6 +1,7 @@
 package IBDNew.IBDNew.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ public class RegistrationController {
 
 	@Autowired
 	private UserService userService;
-
+	@CrossOrigin 
 	@RequestMapping(method = RequestMethod.POST, value = "/register")
 	public boolean registerAddNewUser(@RequestBody User user) {
 		User userExists = userService.getUserByEmail(user.getEmail());
@@ -29,7 +30,7 @@ public class RegistrationController {
 			return true;
 		}
 	}
-
+	@CrossOrigin 
 	@RequestMapping(method = RequestMethod.GET, value = "/activation/{hash}")
 	public String activation(@PathVariable String hash) {
 		String elem[] = hash.split("\\.");

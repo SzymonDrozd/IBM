@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -16,23 +18,19 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@NotEmpty(message = "{user.email.empty}")
+	@NotNull
 	@Email
 	private String email;
 
-	@NotEmpty(message = "{user.firstName.empty}")
 	private String firstName;
 
-	@NotEmpty(message = "{user.surname.empty}")
 	private String surname;
 
-	@NotEmpty(message = "{user.password.empty")
+	@NotNull
 	private String password;
 
-	@NotEmpty(message = "{user.confirmationPassword.empty}")
 	private String confirmPassword;
 
-	@NotEmpty(message = "{user.status.empty")
 	private String status;
 	
 	private boolean activate;
