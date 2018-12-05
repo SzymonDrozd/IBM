@@ -21,6 +21,7 @@ export default class Register extends Component {
         surname: "",
         status: "student"
       },
+      captchaOk:false,
     };
   }
 
@@ -29,7 +30,8 @@ export default class Register extends Component {
       && this.state.user.password.length > 0 
       && this.state.user.confirmPassword.length > 0
       && this.state.user.firstName.length > 0
-      && this.state.user.surname.length > 0 
+      && this.state.user.surname.length > 0
+      && this.state.captchaOk
     ){
       if (this.state.user.password === this.state.user.confirmPassword)
         return true
@@ -64,7 +66,7 @@ export default class Register extends Component {
         .then(response => {
           //console.log(response);
           if (response.data)
-          this.props.userHasAuthenticated(true,this.state.user);
+          //this.props.userHasAuthenticated(true,this.state.user);
           if (this.state.user.status === "student")
             this.props.history.push("/");
           else
@@ -94,6 +96,7 @@ export default class Register extends Component {
   verifyCallback(recaptchaToken) {
     // Here you will get the final recaptchaToken!!!  
     console.log(recaptchaToken, "<= your recaptcha token")
+    this.setState({captchaOk:true})
   }
 
   render() {
@@ -151,7 +154,7 @@ export default class Register extends Component {
               value={this.state.status}
             </FormControl>
           </FormGroup>
-
+          <FormGroup>
            <ReCaptcha
             ref={(el) => {this.captchaDemo = el;}}
             size="normal"
@@ -161,6 +164,7 @@ export default class Register extends Component {
             onloadCallback={this.onLoadRecaptcha}
             verifyCallback={this.verifyCallback}
         />
+        </FormGroup>
 
           <Button
             block

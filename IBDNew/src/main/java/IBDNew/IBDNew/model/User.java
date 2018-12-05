@@ -21,16 +21,16 @@ public class User implements Serializable {
 	@NotNull
 	@Email
 	private String email;
-
+	@NotNull
 	private String firstName;
-
+	@NotNull
 	private String surname;
 
 	@NotNull
 	private String password;
-
+	@NotNull
 	private String confirmPassword;
-
+	@NotNull
 	private String status;
 	
 	private boolean activate;
